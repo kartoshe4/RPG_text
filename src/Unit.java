@@ -1,72 +1,56 @@
 import java.util.Random;
 public class Unit {
-    protected String characterName; // Имя героя
     protected int hp = 100;
-    protected int str = 10;
-    protected int power = 10;
-    protected final float criticalChance = 0.1f;
+    protected int mana = 100;
+    protected int strength = 10;
+    protected int critChance = 10;
     protected int countAttack;
     protected int numberCritAttack;
 
-    // Состояния героя
-    protected boolean isFrese;
-    protected boolean isProtect;
-    protected boolean isEvasion;
-
-    protected int getHp() {
+    public int getHp() {
         return hp;
     }
-    protected void setHp(int hp) {
+    public void setHp(int hp) {
         this.hp = hp;
     }
-    protected int getStr() {
-        return str;
+    public int getMana() {
+        return mana;
     }
-    protected void setStr(int str) {
-        this.str = str;
+    public void setMana(int mana) {
+        this.mana = mana;
     }
-    protected int getPower() {
-        return power;
+    public int getStrength() {
+        return strength;
     }
-    protected void setPower(int power) {
-        this.power = power;
+    public void setStrength(int strength) {
+        this.strength = strength;
     }
-    public Unit(String characterName, char unitType) {
-        this.characterName = characterName; // Получние имени героя
-        switch (unitType) {
-            case 'W':
-                Withard withard = new Withard(characterName);
-                break;
-            case 'K':
-                //this.unit_type = "Knight";
-                break;
-            case 'A':
-                //this.unit_type = "Artificer";
-                break;
-        } // Назначение типа героя
-    } // Информация о герое
-    protected int attack(int attackType) {
-        switch (attackType) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-        }
-        if (isCrit(criticalChance)) return str*2;
-        else return str;
-    } // Атака героя
-    protected boolean isCrit(float criticalChance) {
+    public int getCritChance() {
+        return critChance;
+    }
+    public void setCritChance(int critChance) {
+        this.critChance = critChance;
+    }
+
+    protected boolean isCrit(int criticalChance) {
         countAttack++;
         Random random = new Random();
-        if (countAttack == (int)(1/criticalChance)) countAttack = 0;
+        if (countAttack == 100/criticalChance) countAttack = 0;
         if (countAttack == 0) {
             numberCritAttack = random.nextInt(9) + 1;
         }
         return countAttack == numberCritAttack;
-    } // Проверка на крит
-    public void getType() {
-        System.out.println(" ");
+    }
+
+    public int attack() {
+        if (isCrit(critChance)) {
+            return strength*2;
+        } else {
+            return strength;
+        }
+    }
+
+    public String type() {
+        return "Unit";
     }
 }

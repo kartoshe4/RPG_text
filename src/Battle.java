@@ -1,16 +1,17 @@
 public class Battle {
-    public static void battle(Unit unit1, Unit unit2) {
-        // Действие для первого игрока
-        if (unit1.isFrese) {
-            unit1.isFrese = false;
-        }
-        unit1.getType();
-        // Действия для второго игрока
-        if (unit2.isFrese) {
-            unit2.isFrese = false;
-            if (unit1.isProtect) {
+    public Battle(Unit unit1, Unit unit2) {
+        while (true) {
+            System.out.println("Unit1 - " + unit1.type() + ":\n" +
+                    "   hp: " + unit1.getHp() + "\n" +
+                    "   mana: "+ unit1.getMana() + "\n");
+            System.out.println("Unit2 - " + unit2.type() + ": " + unit2.getHp());
+            unit2.setHp(unit2.getHp() - unit1.attack());
+            if (!(unit2.getHp() > 0)) break;
+            unit1.setHp(unit1.getHp() - unit2.attack());
+            if (!(unit1.getHp() > 0)) break;
 
-            }
         }
+        if (!(unit2.getHp() > 0)) System.out.println("Win unit 1");
+        else System.out.println("Win unit 2");
     }
 }
